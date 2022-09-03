@@ -8,8 +8,8 @@ library(glmnet)
 set.seed(SEED)
 
 ## Constants & data:
-LOW_GROUP <- "********** MASKED **********"
-HIGH_GROUP <- "********** MASKED **********"
+LOW_GROUP <- c("CID4067", "CID4530N")
+HIGH_GROUP <- c("CID3941", "CID4290A", "CID3948")
 
 wu <- read.csv(paste0(DIR_WU,"GSE176078_Wu_etal_2021_bulkRNAseq_raw_counts_resaved.csv"))
 commonSet <- read.table(PATH_COMMONSET)$V1

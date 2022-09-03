@@ -1,4 +1,6 @@
-# Cancer Proliferation Signature Pilot Study
+# Subtype-specific Cellular Proliferation Signature Pilot Study
+
+Code repository for manuscript titled "A cancer proliferation gene signature supervised by Ki-67 strata specific to Luminal A, estrogen receptor-positive, and HER2-negative ductal carcinomas" (accepted August 2022)
 
 Author: @ydavidchen
 
@@ -9,4 +11,4 @@ Author: @ydavidchen
 
 ## Technical Notes
 
-This is the code base for the manuscript. Only the scripts relevant to the final analyses (paper figures) are included. Data cleaning, data loading, and exploratory data analysis (EDA) are _not_ included. In addition, any path variables and API keys/credentials are hidden. Some variables/constants are also _masked_ at present.
+This is the code base for the manuscript. Only the scripts relevant to the final analyses (paper figures) are included. Data cleaning, data loading, and exploratory data analysis (EDA) are _not_ included. Wherever applicable, any path variables and API keys/credentials are hidden.

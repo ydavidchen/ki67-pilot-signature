@@ -25,17 +25,18 @@ t1 <- CreateTableOne(
 t1 <- print(t1, showAllLevels=TRUE)
 # write.csv(t1, paste0(DIR_OUT,"tcga_tableone.csv"))
 
-#------------------------------ Survival ------------------------------
-## OS
+#------------------------------ Kaplan-Meier ------------------------------
 osFit <- survfit(Surv(OS_time, OS_status)~Cluster, data=df_surv)
 ggsurvplot(osFit, df_surv, palette=SURV_COLS, ggtheme=SURV_THEME, pval=TRUE)
 
-## DFS/RFS
 dfsFit <- survfit(Surv(DFS_time, DFS_status)~Cluster, data=df_surv)
-ggsurvplot(dfsFit, df_surv, palette=SURV_COLS, ggtheme=SURV_THEME)
+ggsurvplot(dfsFit, df_surv, palette=SURV_COLS, ggtheme=SURV_THEME, pval=TRUE)
 
-## Cox model
+#------------------------------ CoxPH ------------------------------
 df_surv$Cluster <- factor(df_surv$Cluster, levels=c("Cluster2","Cluster1"))
+
+osCox <- coxph(Surv(OS_time, OS_status)~Cluster+Diagnosis.Age+BinaryAJCC, data=df_surv)
+summary(osCox)
+
 dfsCox <- coxph(Surv(DFS_time, DFS_status)~Cluster+Diagnosis.Age+BinaryAJCC, data=df_surv)
 summary(dfsCox)
-

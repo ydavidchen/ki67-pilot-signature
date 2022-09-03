@@ -26,16 +26,18 @@ t1 <- print(t1, showAllLevels=TRUE)
 t.test(AGE_AT_DIAGNOSIS ~ Cluster, data=df_surv) #exact pval
 # write.csv(t1, paste0(DIR_OUT,"./metabric_tableone.csv"))
 
-# ------------------------- Survival -------------------------
-## OS
-osFit_cl <- survfit(Surv(OS_time, OS_status)~Cluster, data=df_surv)
-ggsurvplot(osFit_cl, df_surv, palette=SURV_COLS, ggtheme=SURV_THEME, pval=TRUE)
+# ------------------------- Kaplan-Meier -------------------------
+osFit <- survfit(Surv(OS_time, OS_status)~Cluster, data=df_surv)
+ggsurvplot(osFit, df_surv, palette=SURV_COLS, ggtheme=SURV_THEME, pval=TRUE)
 
-## DFS/RFS
-rfsFit_cl <- survfit(Surv(RFS_time, RFS_status)~Cluster, data=df_surv)
-ggsurvplot(rfsFit_cl, df_surv, palette=SURV_COLS, ggtheme=SURV_THEME)
+rfsFit <- survfit(Surv(RFS_time, RFS_status)~Cluster, data=df_surv)
+ggsurvplot(rfsFit, df_surv, palette=SURV_COLS, ggtheme=SURV_THEME, pval=TRUE)
 
-## CoxPH on DFS, concerning Cluster 1
+# ------------------------- CoxPH -------------------------
 df_surv$Cluster <- factor(df_surv$Cluster, levels=c("Cluster2","Cluster1"))
+
+osCox <- coxph(Surv(OS_time, OS_status)~Cluster+AGE_AT_DIAGNOSIS+BinaryStage, data=df_surv)
+summary(osCox)
+
 rfsCox <- coxph(Surv(RFS_time, RFS_status)~Cluster+AGE_AT_DIAGNOSIS+BinaryStage, data=df_surv)
 summary(rfsCox)
